@@ -16,6 +16,6 @@ _____
 
 ## Debrief
 
-- **What worked:** _____
-- **What broke / felt like a toy:** _____
-- **What I'd change next pass:** _____
+- **What worked:** What can we create applying use cases and examples with multiple LLM's to test outputs
+- **What broke / felt like a toy:** Multiple tools displayed generally (directionally) similar outcomes, some tools adjusted the output due to having wider context (wider usage) i.e. Claude/ChatGPT more, Loveable less (just signed up)
+- **What I'd change next pass:** Test wider use cases from my role, or existing products.
