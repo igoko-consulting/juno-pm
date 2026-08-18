@@ -10,7 +10,7 @@ _____
 
 ## What it demonstrates
 
-_The one flow this prototype proves._
+Generate dashboard for simple visual to display, raw user transcripts > Structured insights (summary) > Draft PRD
 
 _____
 
