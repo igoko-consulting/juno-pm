@@ -36,10 +36,10 @@ juno.draft_card → {priority, confidence, citations: [...], status: draft|appro
 
 **Memory (in or out of scope)**
 
-- **Episodic:** Episodic: In-scope, this run's retrieved chunks, transcript text, intermediate risk and confidence scores. Lifetime: end of run.
-- **Semantic:** Semantic: In-scope, RocketShip's four strategic pillars, the grounding and evidence-balance rules, prior PM override patterns per pillar. Lifetime: indefinite, refreshed whenever the Strategy One-Pager changes. Out of scope: do not persist customer PII or contract terms.
-- **Working:** Working / contextual: In-scope, current transcript, customer ID if mentioned, retrieved KB chunks, running confidence score. Held in working context only, discarded at end of run.
-- **External:** External tools: Slack #escalations API (read), Strategy One-Pager in Notion (read), Jira ROCKET project (read only), Juno app's own draft store (write, always PM-gated before publish).
+- **Episodic:** in-scope, this run's retrieved chunks, transcript text, intermediate risk and confidence scores. Lifetime: end of run.
+- **Semantic:** in-scope, RocketShip's four strategic pillars, the grounding and evidence-balance rules, prior PM override patterns per pillar. Lifetime: indefinite, refreshed whenever the Strategy One-Pager changes. Out of scope: do not persist customer PII or contract terms.
+- **Working / contextual:** in-scope, current transcript, customer ID if mentioned, retrieved KB chunks, running confidence score. Held in working context only, discarded at end of run.
+- **External tools:** Slack #escalations API (read), Strategy One-Pager in Notion (read), Jira ROCKET project (read only), Juno app's own draft store (write, always PM-gated before publish).
 
 ## Human-in-the-loop
 
@@ -47,7 +47,11 @@ Humans in the loop: PM reviews any priority with confidence under 70% before it'
 
 ## Success & failure
 
-- **Done when:** Stop conditions: Success: ranked cards and PRD draft posted for PM review. Failure: fewer than 3 retrieved segments, or no strategy doc loaded, hands back with an insufficient-evidence banner. Escalation: confidence 30 to 69 tags medium confidence and forces PM review; confidence under 30 returns notRecommended with no ranking produced. Timeout: evidence-balance gate fails twice in a row, falls back to the insufficient-evidence banner rather than retrying indefinitely or shipping a skewed list.
+- **Done when:**
+  - Success: ranked cards and PRD draft posted for PM review.
+  - Failure: fewer than 3 retrieved segments, or no strategy doc loaded, hands back with an insufficient-evidence banner.
+  - Escalation: confidence 30 to 69 tags medium confidence and forces PM review; confidence under 30 returns notRecommended with no ranking produced.
+  - Timeout: evidence-balance gate fails twice in a row, falls back to the insufficient-evidence banner rather than retrying indefinitely or shipping a skewed list.
 - **Fails safe when:** RAG finds no match for the transcript's pain point against any of the four strategic pillars, the card is tagged "Outside current strategy" with an amber warning rather than a forced alignment. PM promotes it manually or sends it back for clarification.
 
 ## Self-review
