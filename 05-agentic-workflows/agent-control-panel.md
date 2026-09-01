@@ -1,27 +1,40 @@
 # Agent Control Panel · Juno
 
 > Module 5 · Agentic Workflows. The operator's control surface for Juno, from the **M5 · Agent Control Panel**. Paste the tool's markdown over this file.
+# Agent Control Panel · Juno
 
 ## Autonomy level
 
-_Shadow · assisted · supervised · bounded-autonomous · autonomous, and why._
-
-_____
+Agent can draft a P0 to P3 priority with citations and a PRD section. Agent CANNOT publish, export, or post that draft anywhere without PM approval.
 
 ## Controls
 
-- **Kill switch:** _how to stop it._
-- **Rate / cost caps:** _the ceilings._
-- **Escalate-on-stuck:** _when it hands back to a human._
+- **Kill switch:** max_steps: 6 (the 5-step pipeline from the AWSpec, plus 1 evidence-balance retry). Abort if the same tool fails twice in a row. Hard timeout: 15s wall clock, 5x the 3s p95 latency target from the PRD, enough margin to not mask a real stall.
+- **Rate / cost caps:** corpus.retrieve → {chunks: [{text, source, pillar, score}], confidence}. jira.read_ticket → {key, priority, status, summary}. juno.draft_card → {priority, confidence, citations: [...], status: draft}.
+- **Escalate-on-stuck:** After retrieval returns fewer than 3 relevant segments, or the evidence-balance gate fails twice, degrade to the "insufficient evidence" banner, no priority assigned, PM prompted to load the strategy doc or escalate manually. After 2 tool errors in a run, abort and log the full trace for PM review.
 
 ## Monitoring
 
-_The signals and dashboards the operator watches._
+**Confidence thresholds (map to actions):**
 
-_____
+≥ 70% → tag P0/P1, ready for the PM review queue. 30 to 69% → tag P2/P3 "medium confidence," mandatory PM review before it's treated as final. < 30% → notRecommended, no priority assigned, straight to PM judgement.
+
+**Checkpoints:**
+
+Any priority under 70% confidence requires PM review before it counts as final. Any conflicting signal between Jira and Slack (PRD requirement 5) requires PM review, the agent doesn't pick a side. Any transcript Juno can't map to a strategic pillar is tagged "Outside current strategy" and goes straight to PM judgement.
+
+**North Star (re-read every loop):**
+
+You are Juno. Your single goal is to turn each new P0/P1 escalation into a ranked, cited priority for the PM's daily review. Always cite a strategic pillar and a source ID. Never invent customer names, ARR figures, or PII. Mark NEEDS CLARIFICATION instead of guessing. Never publish without PM approval.
 
 ## Permissions
 
-_What actions Juno may take autonomously vs. only with approval._
+READ: Slack #escalations, Notion Strategy One-Pager, Jira ROCKET tickets. WRITE: Juno's own draft store only. CANNOT write to Jira, Slack, Notion, or Salesforce under any circumstance.
 
-_____
+## Self-review
+
+- [ ] Stop conditions include max_steps + wall-clock timeout.
+- [ ] Tool outputs include a confidence/score field per retrieval tool.
+- [ ] Confidence thresholds map to actions, not just labels.
+- [ ] North Star is one sentence, re-read every loop.
+- [ ] Each rule of engagement names something the agent CANNOT do.
