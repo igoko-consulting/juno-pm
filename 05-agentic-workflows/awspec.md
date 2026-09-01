@@ -19,13 +19,12 @@ Trigger: New transcript added to the Raw Input column, tagged P0 or P1.
 
 | Step | Action | Tool / model | Guardrail |
 |---|---|---|---|
-| 1 | Sequential steps: | Tool inventory: | Read/write boundaries: Agent can READ Slack #escalations, the Strategy One-Pager, and Jira ROCKET tickets. Agent can WRITE only draft Insight Cards and PRD sections inside the Juno app, always in draft state. Agent CANNOT publish, export, edit Jira tickets, or post anywhere externally without PM approval, per PRD requirement 6. |
-| 2 | Read the transcript and identify the pain point. | slack.read_thread(id), read-only |  |
-| 3 | RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. | notion.retrieve(strategy_doc_id), read-only |  |
-| 4 | Compare the pain point against the four strategic pillars. | jira.read_ticket(key), read-only |  |
-| 5 | Score risk and alignment, emit P0 to P3 with a confidence score. | corpus.retrieve(query, k=6), read-only |  |
-| 6 | Draft Insight Cards and PRD section, route to PM based on the confidence threshold. | juno.draft_card(payload), write, always saved as draft, requires PM approval |  |
-| 7 | _ | juno.draft_prd_section(payload), write, always saved as draft, requires PM approval |  |
+| 1 | Read the transcript and identify the pain point. | slack.read_thread(id), read-only | |
+| 2 | RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. | corpus.retrieve(query, k=6), read-only | |
+| 3 | Compare the pain point against the four strategic pillars. | Reasoning step, no tool call | |
+| 4 | Cross-check Jira priority against the Slack escalation for conflicts. | jira.read_ticket(key), read-only | Surfaces conflicts, does not resolve them (PRD requirement 5). |
+| 5 | Score risk and alignment, emit P0 to P3 with a confidence score. | Reasoning step, no tool call | |
+| 6 | Draft the Insight Card and PRD section, route to PM based on the confidence threshold. | juno.draft_card(payload), juno.draft_prd_section(payload), write, always saved as draft | Agent CANNOT publish, export, edit Jira tickets, or post anywhere externally without PM approval (PRD requirement 6). |
 
 **Schemas**
 
@@ -49,7 +48,7 @@ Humans in the loop: PM reviews any priority with confidence under 70% before it'
 ## Success & failure
 
 - **Done when:** Stop conditions: Success: ranked cards and PRD draft posted for PM review. Failure: fewer than 3 retrieved segments, or no strategy doc loaded, hands back with an insufficient-evidence banner. Escalation: confidence 30 to 69 tags medium confidence and forces PM review; confidence under 30 returns notRecommended with no ranking produced. Timeout: evidence-balance gate fails twice in a row, falls back to the insufficient-evidence banner rather than retrying indefinitely or shipping a skewed list.
-- **Fails safe when:** Read/write boundaries: Agent can READ Slack #escalations, the Strategy One-Pager, and Jira ROCKET tickets. Agent can WRITE only draft Insight Cards and PRD sections inside the Juno app, always in draft state. Agent CANNOT publish, export, edit Jira tickets, or post anywhere externally without PM approval, per PRD requirement 6.
+- **Fails safe when:** RAG finds no match for the transcript's pain point against any of the four strategic pillars, the card is tagged "Outside current strategy" with an amber warning rather than a forced alignment. PM promotes it manually or sends it back for clarification.
 
 ## Self-review
 

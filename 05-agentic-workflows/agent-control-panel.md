@@ -10,7 +10,7 @@ Agent can draft a P0 to P3 priority with citations and a PRD section. Agent CANN
 ## Controls
 
 - **Kill switch:** max_steps: 6 (the 5-step pipeline from the AWSpec, plus 1 evidence-balance retry). Abort if the same tool fails twice in a row. Hard timeout: 15s wall clock, 5x the 3s p95 latency target from the PRD, enough margin to not mask a real stall.
-- **Rate / cost caps:** corpus.retrieve → {chunks: [{text, source, pillar, score}], confidence}. jira.read_ticket → {key, priority, status, summary}. juno.draft_card → {priority, confidence, citations: [...], status: draft}.
+- **Rate / cost caps:** ~$0.07 per run at current blended token cost (PRD requirement 1). Cap at 50 runs per day per workspace (~$3.50), alert the PM lead if exceeded, a spike usually means something upstream is misconfigured, not genuine demand.
 - **Escalate-on-stuck:** After retrieval returns fewer than 3 relevant segments, or the evidence-balance gate fails twice, degrade to the "insufficient evidence" banner, no priority assigned, PM prompted to load the strategy doc or escalate manually. After 2 tool errors in a run, abort and log the full trace for PM review.
 
 ## Monitoring

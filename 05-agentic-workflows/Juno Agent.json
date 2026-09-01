@@ -1,7 +1,9 @@
 {
-  "description": "Juno PM — starter Langflow agent for the AI Product Management Certification. Import into Langflow and add your own OpenAI API key. Single-agent ReAct pattern that triages a P0 thread into a top-3 risk list with citations.",
-  "name": "Juno PM — P0 Triage Agent (Starter)",
-  "version": "0.1.0",
+  "description": "Juno PM — agent graph realigned to the finalized AWSpec (05-agentic-workflows/awspec.md) and Agent Control Panel (05-agentic-workflows/agent-control-panel.md). ReAct pattern, single agent, cited priority output, PM approval gate before anything publishes. Import into Langflow if you want to run it live, provider-agnostic, add your own LLM API key as a Langflow environment variable, never hardcoded here.",
+  "name": "Juno PM — P0 Triage Agent",
+  "version": "0.2.0",
+  "max_steps": 6,
+  "timeout_s": 15,
   "data": {
     "nodes": [
       {
@@ -9,8 +11,8 @@
         "type": "ChatInput",
         "position": { "x": 0, "y": 0 },
         "data": {
-          "label": "Slack P0 thread",
-          "description": "Paste the raw Slack thread for testing. In production this is fed by a webhook on #escalations.",
+          "label": "New #escalations thread, P0/P1",
+          "description": "Trigger: new transcript added to the Raw Input column, tagged P0 or P1. In production this is fed by a webhook on #escalations, no manual start.",
           "input_value": ""
         }
       },
@@ -19,8 +21,8 @@
         "type": "Prompt",
         "position": { "x": 320, "y": 0 },
         "data": {
-          "label": "Juno system prompt",
-          "template": "You are Juno PM, an AI Associate PM embedded in RocketShip's Slack/Notion/Jira. You operate as a risk watchdog. For the attached P0 thread:\n\n1. Identify the top 3 risks.\n2. For each risk, cite the message index that supports it.\n3. Score each risk 1-5 for severity. If confidence < 70%, mark NEEDS PM REVIEW.\n4. Never invent customer names, ARR, or contracts.\n5. Output a markdown table: Rank | Risk | Confidence | Source idx | Suggested action.\n\nThread:\n{thread}"
+          "label": "Juno North Star",
+          "template": "You are Juno. Your single goal is to turn each new P0/P1 escalation into a ranked, cited priority for the PM's daily review. Always cite a strategic pillar and a source ID. Never invent customer names, ARR figures, or PII. Mark NEEDS CLARIFICATION instead of guessing. Never publish without PM approval.\n\nThread:\n{thread}"
         }
       },
       {
@@ -28,83 +30,147 @@
         "type": "Retriever",
         "position": { "x": 320, "y": 220 },
         "data": {
-          "label": "RAG retriever (placeholder)",
-          "description": "Replace with a real vector store. Default: pgvector + text-embedding-3-large. Top-k = 10.",
-          "k": 10
+          "label": "corpus.retrieve",
+          "description": "RAG retrieval over the RocketShip Strategy One-Pager (02-strategy/strategy-one-pager.md), including the four named strategic pillars.",
+          "k": 6,
+          "read_only": true
+        }
+      },
+      {
+        "id": "jira-crosscheck",
+        "type": "Tool",
+        "position": { "x": 320, "y": 440 },
+        "data": {
+          "label": "jira.read_ticket",
+          "description": "Cross-check the linked Jira ROCKET ticket's priority against the Slack escalation's tag. Read-only, surfaces conflicts, never resolves them (PRD requirement 5).",
+          "read_only": true
         }
       },
       {
         "id": "llm",
-        "type": "OpenAI",
+        "type": "LLM",
         "position": { "x": 640, "y": 110 },
         "data": {
-          "label": "GPT-4-class model",
-          "model": "gpt-4o",
+          "label": "Reasoning model (provider-agnostic)",
+          "description": "Compares the pain point to the four strategic pillars and scores risk + alignment. Provider and API key are runtime config in Langflow, not stored here.",
           "temperature": 0.2,
           "max_tokens": 800,
-          "_note": "Add your OPENAI_API_KEY as a Langflow environment variable."
+          "_note": "Add your own LLM provider's API key as a Langflow environment variable. Never commit a key to this file."
         }
       },
       {
-        "id": "guardrail",
+        "id": "conflict-check",
+        "type": "Conditional",
+        "position": { "x": 960, "y": 300 },
+        "data": {
+          "label": "Jira vs. Slack priority mismatch?",
+          "condition": "jira_ticket.priority != slack_thread.priority",
+          "if_true": "flag-conflict",
+          "if_false": "confidence-guardrail"
+        }
+      },
+      {
+        "id": "flag-conflict",
+        "type": "Conditional",
+        "position": { "x": 1120, "y": 440 },
+        "data": {
+          "label": "Flag conflicting signal",
+          "description": "Card is tagged 'conflicting signal' with both citations shown side by side. Forces PM review regardless of confidence (Control Panel Checkpoints).",
+          "next": "confidence-guardrail"
+        }
+      },
+      {
+        "id": "confidence-guardrail",
         "type": "Conditional",
         "position": { "x": 960, "y": 110 },
         "data": {
-          "label": "Confidence guardrail",
-          "condition": "all(risks).confidence >= 0.7",
-          "if_true": "auto-post",
-          "if_false": "hand-off"
+          "label": "Confidence threshold",
+          "condition": "confidence >= 0.70 ? 'high' : (confidence >= 0.30 ? 'medium' : 'low')",
+          "high": "draft-card",
+          "medium": "draft-card",
+          "low": "insufficient-evidence"
         }
       },
       {
-        "id": "auto-post",
-        "type": "SlackPost",
-        "position": { "x": 1280, "y": 30 },
+        "id": "insufficient-evidence",
+        "type": "Response",
+        "position": { "x": 1280, "y": -60 },
         "data": {
-          "label": "Auto-post to #pm-daily",
-          "channel": "#pm-daily",
-          "_note": "Stub. Replace with a real Slack tool integration."
+          "label": "Insufficient evidence banner",
+          "description": "Confidence < 30%, or fewer than 3 retrieved segments, or no strategy doc loaded. No priority assigned. 'Insufficient evidence to recommend priority, load a strategy document or escalate to PM judgement.'"
         }
       },
       {
-        "id": "hand-off",
-        "type": "SlackPost",
-        "position": { "x": 1280, "y": 200 },
+        "id": "draft-card",
+        "type": "Tool",
+        "position": { "x": 1280, "y": 110 },
         "data": {
-          "label": "Hand-off to #pm-juno-review",
-          "channel": "#pm-juno-review",
-          "tag": "@on-call-pm",
-          "_note": "Stub. Replace with a real Slack tool integration."
+          "label": "juno.draft_card",
+          "description": "Writes a draft Insight Card: priority, confidence, citations, status. Always draft, never published directly.",
+          "write": true,
+          "always_draft": true
+        }
+      },
+      {
+        "id": "draft-prd",
+        "type": "Tool",
+        "position": { "x": 1280, "y": 230 },
+        "data": {
+          "label": "juno.draft_prd_section",
+          "description": "Writes a draft PRD section (Problem / Goal / Scope / Out of Scope / Open Questions). Always draft, never published directly.",
+          "write": true,
+          "always_draft": true
+        }
+      },
+      {
+        "id": "pm-approval-gate",
+        "type": "HumanApproval",
+        "position": { "x": 1600, "y": 170 },
+        "data": {
+          "label": "PM approval gate",
+          "description": "No card, priority, or PRD section is published, shared, or exported until a PM clicks Approve. This is the Copilot autonomy boundary, enforced here, not just stated as policy (PRD requirement 6).",
+          "blocking": true
         }
       },
       {
         "id": "eval-log",
         "type": "Logger",
-        "position": { "x": 1280, "y": 360 },
+        "position": { "x": 1600, "y": 360 },
         "data": {
           "label": "Eval pipeline log",
-          "fields": ["trace_id", "trigger_payload", "retrieved_chunks", "tool_calls", "outputs", "confidence_per_risk", "pm_action", "latency_ms", "tokens", "cost_usd"]
+          "fields": ["trace_id", "trigger_payload", "retrieved_chunks", "matched_pillar", "jira_conflict_detected", "confidence", "tool_calls", "pm_action", "latency_ms", "tokens", "cost_usd"]
         }
       }
     ],
     "edges": [
       { "source": "input-thread", "target": "system-prompt" },
       { "source": "input-thread", "target": "retrieval" },
+      { "source": "input-thread", "target": "jira-crosscheck" },
       { "source": "retrieval", "target": "system-prompt" },
       { "source": "system-prompt", "target": "llm" },
-      { "source": "llm", "target": "guardrail" },
-      { "source": "guardrail", "target": "auto-post", "label": "≥70%" },
-      { "source": "guardrail", "target": "hand-off", "label": "<70%" },
+      { "source": "jira-crosscheck", "target": "conflict-check" },
+      { "source": "llm", "target": "conflict-check" },
+      { "source": "conflict-check", "target": "flag-conflict", "label": "priorities differ" },
+      { "source": "conflict-check", "target": "confidence-guardrail", "label": "priorities match" },
+      { "source": "flag-conflict", "target": "confidence-guardrail" },
+      { "source": "confidence-guardrail", "target": "draft-card", "label": ">= 30%" },
+      { "source": "confidence-guardrail", "target": "insufficient-evidence", "label": "< 30%" },
+      { "source": "draft-card", "target": "draft-prd" },
+      { "source": "draft-prd", "target": "pm-approval-gate" },
       { "source": "llm", "target": "eval-log" }
     ]
   },
   "_readme": {
-    "purpose": "Starter Langflow export for the optional M5 post-class lab. Mirrors the AWSpec — ReAct pattern, single agent, confidence-based handoff.",
-    "tools_required": ["Langflow", "OpenAI API key (~$5 credit is enough for the lab)"],
-    "what_to_change": [
-      "Replace the 'RAG retriever (placeholder)' with a real vector store of the RocketShip corpus.",
-      "Replace the 'auto-post' and 'hand-off' SlackPost nodes with real Slack tool integrations or your own webhook.",
-      "Adjust the confidence threshold in the guardrail node based on your eval data (M6)."
-    ]
+    "purpose": "Realigned Langflow export for the optional M5 post-class lab, matching the finalized AWSpec and Agent Control Panel exactly (top-K=6, three-way confidence routing, Jira/Slack conflict check, PM approval gate, no hardcoded LLM provider).",
+    "tools_required": ["Langflow", "an LLM provider API key of your choice (~$5 credit is enough for the lab), added as a Langflow environment variable, never in this file"],
+    "what_changed_from_v0.1.0": [
+      "top-K 10 -> 6, matching awspec.md.",
+      "Removed the hardcoded OpenAI node, replaced with a provider-agnostic 'Reasoning model' node. Provider/key are runtime config, not stored here.",
+      "Removed the two Slack-post output nodes, Juno's write boundary is its own draft store only, it cannot post to Slack (agent-control-panel.md Permissions).",
+      "Added the Jira cross-check and conflict-flagging branch (PRD requirement 5), previously described in docs but never represented in the graph.",
+      "Confidence guardrail is now three-way (>=70 high, 30-69 medium, <30 insufficient-evidence), not a single 70% cutoff.",
+      "Added an explicit, blocking PM approval gate node before anything is treated as final (PRD requirement 6)."
+    ],
+    "known_limitation": "This graph has not been run inside actual Langflow, it was authored to match the AWSpec exactly and is ready to import, but hasn't been execution-tested against a live LLM. See 05-agentic-workflows/dry-run/ for a real execution of this same logic, done without Langflow."
   }
 }

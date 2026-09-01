@@ -24,6 +24,13 @@ Approach: Hybrid - Ground (RAG) + bounded Agentic cross-check. We ground the mod
 
 Explicitly avoiding: a generic LLM (Buy) - without RAG grounding, Juno would hallucinate plausible-sounding priorities and invent customer signals that don't exist, the failure mode that kills trust fastest. Also avoiding Fine-tune: it goes stale as the corpus moves and still can't cite a live source the way RAG retrieval can.
 
+**Strategic pillars.** Every priority is scored against one of these four, this is what "strategic-rationale citation" in the AWSpec actually points to:
+
+1. **Platform Reliability** - uptime and crash-free performance, especially on data-heavy operations (large exports, high-volume queries).
+2. **Trust & Security** - authentication, access control, data integrity.
+3. **Customer Retention** - reducing churn, weighted toward the quieter SMB signal flagged in Risk 1 below, not just the loudest enterprise escalation.
+4. **Operational Efficiency** - reducing manual PM and support toil, the same value frame Juno itself is built to deliver.
+
 ## 5. Risks & Mitigations
 
 Risk 1: training data lag. Juno could over-weight whichever signal type was loudest in the past 60 days (e.g. enterprise escalations) and systematically under-weight quieter but more strategic signals (e.g. SMB churn). One quarter of skewed priorities and the roadmap drifts.
