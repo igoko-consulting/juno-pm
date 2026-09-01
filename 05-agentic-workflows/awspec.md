@@ -19,12 +19,12 @@ Trigger: New transcript added to the Raw Input column, tagged P0 or P1.
 
 | Step | Action | Tool / model | Guardrail |
 |---|---|---|---|
-| 1 | Sequential steps: 1. Read the transcript and identify the pain point. 2. RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. 3. Compare the pain point against the four strategic pillars. 4. Score risk and alignment, emit P0 to P3 with a confidence score. 5. Draft Insight Cards and PRD section, route to PM based on the confidence threshold. | Tool inventory: | Read/write boundaries: Agent can READ Slack #escalations, the Strategy One-Pager, and Jira ROCKET tickets. Agent can WRITE only draft Insight Cards and PRD sections inside the Juno app, always in draft state. Agent CANNOT publish, export, edit Jira tickets, or post anywhere externally without PM approval, per PRD requirement 6. |
-| 2 | _ | slack.read_thread(id), read-only |  |
-| 3 | _ | notion.retrieve(strategy_doc_id), read-only |  |
-| 4 | _ | jira.read_ticket(key), read-only |  |
-| 5 | _ | corpus.retrieve(query, k=6), read-only |  |
-| 6 | _ | juno.draft_card(payload), write, always saved as draft, requires PM approval |  |
+| 1 | Sequential steps: | Tool inventory: | Read/write boundaries: Agent can READ Slack #escalations, the Strategy One-Pager, and Jira ROCKET tickets. Agent can WRITE only draft Insight Cards and PRD sections inside the Juno app, always in draft state. Agent CANNOT publish, export, edit Jira tickets, or post anywhere externally without PM approval, per PRD requirement 6. |
+| 2 | Read the transcript and identify the pain point. | slack.read_thread(id), read-only |  |
+| 3 | RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. | notion.retrieve(strategy_doc_id), read-only |  |
+| 4 | Compare the pain point against the four strategic pillars. | jira.read_ticket(key), read-only |  |
+| 5 | Score risk and alignment, emit P0 to P3 with a confidence score. | corpus.retrieve(query, k=6), read-only |  |
+| 6 | Draft Insight Cards and PRD section, route to PM based on the confidence threshold. | juno.draft_card(payload), write, always saved as draft, requires PM approval |  |
 | 7 | _ | juno.draft_prd_section(payload), write, always saved as draft, requires PM approval |  |
 
 **Schemas**
