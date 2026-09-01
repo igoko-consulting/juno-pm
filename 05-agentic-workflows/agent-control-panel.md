@@ -1,6 +1,6 @@
 # Agent Control Panel · Juno
 
-> Module 5 · Agentic Workflows. The operator's control surface for Juno, from the **M5 · Agent Control Panel**. Paste the tool's markdown over this file.
+> Module 5 · Agentic Workflows. The operator's control surface for Juno, from the **M5 · Agent Control Panel**. 
 # Agent Control Panel · Juno
 
 ## Autonomy level
