@@ -67,7 +67,7 @@ _Full 1-5 anchors:_
 - **Graders per item:** 2 graders (1 PM, 1 engineer) plus a third PM as tiebreak on disagreement
 - **Calibration cadence:** Monthly, or immediately if the 15% disagreement-rate trigger above fires.
 
-If two graders differ by 2 or more points on any dimension, escalate to the tiebreak PM, who resolves with a written rationale logged against the run. A disagreement rate of 15% or higher on any single dimension across a weekly batch triggers a re-calibration session before the next batch is graded.
+- **Disagreement protocol:** If two graders differ by 2 or more points on any dimension, escalate to the tiebreak PM, who resolves with a written rationale logged against the run. A disagreement rate of 15% or higher on any single dimension across a weekly batch triggers a re-calibration session before the next batch is graded.
 
 ## Pass bar
 
