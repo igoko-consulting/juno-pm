@@ -10,12 +10,12 @@ _____
 
 ## What it demonstrates
 
-Generate dashboard for simple visual to display, raw user transcripts > Structured insights (summary) > Draft PRD
+A simple three-column dashboard: raw user transcripts in, structured insights (summarised) in the middle, a draft PRD out.
 
 _____
 
 ## Debrief
 
-- **What worked:** What can we create applying use cases and examples with multiple LLM's to test outputs
+- **What worked:** Testing the same use case across multiple LLMs to compare outputs side by side.
 - **What broke / felt like a toy:** Multiple tools displayed generally (directionally) similar outcomes, some tools adjusted the output due to having wider context (wider usage) i.e. Claude/ChatGPT more, Loveable less (just signed up)
 - **What I'd change next pass:** Test wider use cases from my role, or existing products.
