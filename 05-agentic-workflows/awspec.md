@@ -19,11 +19,11 @@ Trigger: New transcript added to the Raw Input column, tagged P0 or P1.
 
 | Step | Action | Tool / model | Guardrail |
 |---|---|---|---|
-| 1 | Read the transcript and identify the pain point. | slack.read_thread(id), read-only | |
-| 2 | RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. | corpus.retrieve(query, k=6), read-only | |
-| 3 | Compare the pain point against the four strategic pillars. | Reasoning step, no tool call | |
+| 1 | Read the transcript and identify the pain point. | slack.read_thread(id), read-only | If the thread is ambiguous, incomplete, or contradictory, mark NEEDS CLARIFICATION instead of guessing. |
+| 2 | RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. | corpus.retrieve(query, k=6), read-only | Fewer than 3 relevant segments, or no strategy doc loaded, fails to the insufficient-evidence banner rather than guessing (PRD requirement 2). |
+| 3 | Compare the pain point against the four strategic pillars. | Reasoning step, no tool call | No pillar match found, tag "Outside current strategy" with an amber warning, never force an alignment. |
 | 4 | Cross-check Jira priority against the Slack escalation for conflicts. | jira.read_ticket(key), read-only | Surfaces conflicts, does not resolve them (PRD requirement 5). |
-| 5 | Score risk and alignment, emit P0 to P3 with a confidence score. | Reasoning step, no tool call | |
+| 5 | Score risk and alignment, emit P0 to P3 with a confidence score. | Reasoning step, no tool call | Confidence bands the outcome: ≥70 high, 30 to 69 medium forces PM review regardless of priority, under 30 → notRecommended, no priority assigned. |
 | 6 | Draft the Insight Card and PRD section, route to PM based on the confidence threshold. | juno.draft_card(payload), juno.draft_prd_section(payload), write, always saved as draft | Agent CANNOT publish, export, edit Jira tickets, or post anywhere externally without PM approval (PRD requirement 6). |
 
 **Schemas**
