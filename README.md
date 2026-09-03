@@ -69,10 +69,6 @@ _Compliance · Safety · Reliability · Reputation._
 - **Key learning.** A repo-wide consistency audit caught something no single-module review would have: Module 1's system prompt was still describing a different output shape, a ranked top-5 table, than every module built after it, a single scored priority card. Each module was internally fine; the set wasn't consistent with itself.
 - **Aha moment.** Reading the AWSpec is not the same as running it. The Jira/Slack conflict-check branch had been described in three separate documents but never actually exercised until the dry run produced a case where high confidence and a live conflict happened on the same card, and confirmed the conflict flag correctly overrode the confidence score rather than the other way round.
 
----
-
-## Repo structure
-
 
 ---
 
