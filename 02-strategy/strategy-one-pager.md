@@ -14,9 +14,9 @@ Leadership proof: under-10% rate of decisions reversed within 1 week (tracked vi
 
 ## 3. Autonomy Level
 
-Choice: Copilot. The AI reviews the evidence file and drafts the decision letter with a recommended payout; a human supervisor must click 'approve' before any transaction over $500 goes out. The threshold isn't arbitrary - it calibrates autonomy to blast radius, letting routine, low-stakes claims move faster while anything material still gets a human check.
+Choice: Copilot. Juno drafts a P0 to P3 priority with a confidence score and source citations; the PM reviews and clicks 'approve' before anything publishes (PRD requirement 6).
 
-Explicitly avoiding: Agent. We will not give the AI end-to-end autonomy to move money out of a user's account unsupervised - a single misjudged damage assessment, if it reaches the payout stage before anyone catches it, is a trust-erosion event we can't undo. Also passing on pure Reactive/Assist: waiting for a supervisor to ask before drafting anything erases the time savings that justify automating claims review in the first place.
+Explicitly avoiding: Agent. Letting Juno move sprint priorities or shift live dates without a human approval step is a one-way trust-erosion door - a single wrong call lets stakeholders dismiss the system permanently. Also passing on pure Reactive/Assist: waiting for a supervisor to ask before drafting anything erases the time savings that justify automating a weekly bottleneck.
 
 ## 4. Data & Model Approach
 
