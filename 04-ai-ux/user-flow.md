@@ -60,10 +60,10 @@ If the evidence-balance gate fails twice in a row (see PRD requirement 4), Juno 
 
 ## Self-review
 
-- [ ] Trigger fires on the earliest possible signal, no manual "Start AI" click.
-- [ ] At least one breadcrumb message turns latency into transparency.
-- [ ] Manoeuvre matches the M2 value prop (Automation / Augmentation / Insights / Personalisation).
-- [ ] Every automated decision has a working kill switch.
-- [ ] Fail-safe path is explicit, no dead end on a bad AI result.
-- [ ] Hidden logic references M3 PRD specs (Top-K, latency target, knowledge base).
-- [ ] Approval gate is a visible, blocking step before anything publishes.
+- [x] Trigger fires on the earliest possible signal, no manual "Start AI" click.
+- [x] At least one breadcrumb message turns latency into transparency.
+- [x] Manoeuvre matches the M2 value prop (Automation / Augmentation / Insights / Personalisation).
+- [x] Every automated decision has a working kill switch.
+- [x] Fail-safe path is explicit, no dead end on a bad AI result.
+- [x] Hidden logic references M3 PRD specs (Top-K, latency target, knowledge base).
+- [x] Approval gate is a visible, blocking step before anything publishes.
