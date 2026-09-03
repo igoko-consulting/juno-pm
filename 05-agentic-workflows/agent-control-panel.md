@@ -33,8 +33,8 @@ READ: Slack #escalations, Notion Strategy One-Pager, Jira ROCKET tickets. WRITE:
 
 ## Self-review
 
-- [ ] Stop conditions include max_steps + wall-clock timeout.
-- [ ] Tool outputs include a confidence/score field per retrieval tool.
-- [ ] Confidence thresholds map to actions, not just labels.
-- [ ] North Star is one sentence, re-read every loop.
-- [ ] Each rule of engagement names something the agent CANNOT do.
+- [x] Stop conditions include max_steps + wall-clock timeout.
+- [x] Tool outputs include a confidence/score field per retrieval tool.
+- [x] Confidence thresholds map to actions, not just labels.
+- [x] North Star is one sentence, re-read every loop.
+- [x] Each rule of engagement names something the agent CANNOT do.
