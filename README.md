@@ -2,7 +2,7 @@
 
 > Juno turns noisy Slack, Jira, and Notion signals into a ranked, cited priority a RocketShip PM can defend, without re-deriving the reasoning by hand.
 
-_Martin Cook · AI Product Management Certification · [cohort / submission date]_
+_Martin Cook · AI Product Management Certification · [#ai-product-management-aug17-26-weeknights / 9th August 2026]_
 
 This repo is my final project for the **AI Product Management Certification**. Each module's artefact lives in its own folder; this README is the dashboard and the pitch.
 
