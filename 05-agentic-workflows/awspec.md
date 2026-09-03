@@ -56,10 +56,10 @@ Humans in the loop: PM reviews any priority with confidence under 70% before it'
 
 ## Self-review
 
-- [ ] Goal is one sentence and names the value frame.
-- [ ] Trigger is a precise, testable condition.
-- [ ] Pattern is chosen with a defensible reason.
-- [ ] At least 3 stop conditions, including escalation.
-- [ ] Each memory type named (in or out).
-- [ ] Every tool lists scope (read-only vs write) and a schema.
-- [ ] Read/write boundaries match the AI PRD (M3).
+- [x] Goal is one sentence and names the value frame.
+- [x] Trigger is a precise, testable condition.
+- [x] Pattern is chosen with a defensible reason.
+- [x] At least 3 stop conditions, including escalation.
+- [x] Each memory type named (in or out).
+- [x] Every tool lists scope (read-only vs write) and a schema.
+- [x] Read/write boundaries match the AI PRD (M3).
