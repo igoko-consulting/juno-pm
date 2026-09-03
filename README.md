@@ -76,32 +76,32 @@ _Compliance · Safety · Reliability · Reputation._
 
 ```
 juno-pm/
-├── README.md ← this dashboard + pitch
+├── README.md                    ← this dashboard + pitch
 ├── 01-prompting/
-│ ├── system-prompt.md ← M1: Juno's system prompt
-│ └── lovable-prototype.md ← M1: prototype link + debrief
+│   ├── system-prompt.md         ← M1: Juno's system prompt
+│   └── lovable-prototype.md     ← M1: prototype link + debrief
 ├── 02-strategy/
-│ ├── decision-matrix.md ← M2: build / buy / fine-tune call
-│ └── strategy-one-pager.md ← M2: AI strategy one-pager
+│   ├── decision-matrix.md       ← M2: build / buy / fine-tune call
+│   └── strategy-one-pager.md    ← M2: AI strategy one-pager
 ├── 03-rag-prd/
-│ ├── prd.md ← M3: AI PRD with retrieval requirements
-│ └── juno-rag-diff.md ← M3: RAG diagnostic working notes
+│   ├── prd.md                   ← M3: AI PRD with retrieval requirements
+│   └── juno-rag-diff.md         ← M3: RAG diagnostic working notes
 ├── 04-ai-ux/
-│ ├── user-flow.md ← M4: AI-native user flow
-│ ├── user-flow.png ← M4: flow diagram
-│ └── trust-gaps.md ← M4: trust-gap mitigations
+│   ├── user-flow.md             ← M4: AI-native user flow
+│   ├── user-flow.png            ← M4: flow diagram
+│   └── trust-gaps.md            ← M4: trust-gap mitigations
 ├── 05-agentic-workflows/
-│ ├── awspec.md ← M5: Agent Workflow Spec
-│ ├── awspec.png ← M5: AWSpec diagram
-│ ├── agent-control-panel.md ← M5: Agent Control Panel
-│ ├── agent-control-panel.png ← M5: Control Panel diagram
-│ ├── Juno Agent.json ← M5: agent graph, realigned to the AWSpec
-│ └── dry-run/ ← M5: AWSpec executed live, no Langflow needed
+│   ├── awspec.md                ← M5: Agent Workflow Spec
+│   ├── awspec.png               ← M5: AWSpec diagram
+│   ├── agent-control-panel.md   ← M5: Agent Control Panel
+│   ├── agent-control-panel.png  ← M5: Control Panel diagram
+│   ├── Juno Agent.json          ← M5: agent graph, realigned to the AWSpec
+│   └── dry-run/                 ← M5: AWSpec executed live, no Langflow needed
 ├── 06-evals/
-│ ├── eval-stack.md ← M6: layered eval stack
-│ ├── eval-stack.png ← M6: eval stack diagram
-│ ├── human-rubric.md ← M6: human evaluation rubric
-│ └── human-rubric.png ← M6: rubric diagram
+│   ├── eval-stack.md            ← M6: layered eval stack
+│   ├── eval-stack.png           ← M6: eval stack diagram
+│   ├── human-rubric.md          ← M6: human evaluation rubric
+│   └── human-rubric.png         ← M6: rubric diagram
 ```
 
 ---
