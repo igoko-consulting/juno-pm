@@ -36,6 +36,13 @@ This repo is my final project for the **AI Product Management Certification**. E
 - **Eval stack** — [`06-evals/eval-stack.md`](06-evals/eval-stack.md) ([diagram](06-evals/eval-stack.png))
 - **Human evaluation rubric** — [`06-evals/human-rubric.md`](06-evals/human-rubric.md) ([diagram](06-evals/human-rubric.png))
 
+> Naming note: two folders use different filenames than the certification template suggests, content and module mapping are correct, only the names differ.
+>
+> | Folder | Template suggests | This repo uses |
+> |---|---|---|
+> | `01-prompting/` | `prototype.md` | `lovable-prototype.md` |
+> | `03-rag-prd/` | `ai-prd.md`, `before-after-rag.md` | `prd.md`, `juno-rag-diff.md` |
+
 ---
 
 ## PM Execution Plan
