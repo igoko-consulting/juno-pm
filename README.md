@@ -48,24 +48,35 @@ This repo is my final project for the **AI Product Management Certification**. E
 ## PM Execution Plan
 
 ### Where Juno is today
-All six modules are built and, after a full repo-wide consistency pass, internally consistent with each other, one product description end to end, not six independently plausible ones. The AWSpec's logic has been proven with a real dry run against a live example (`05-agentic-workflows/dry-run/`), including the Jira/Slack conflict-check branch. Not yet running against a live LLM or in production. Modelled payback: approximately 4 quarters, see Strategy One-Pager §2.
+- All six modules built (M1–M6) and internally consistent after a full repo audit.
+- The AWSpec's logic is proven against a live example, including the Jira/Slack conflict-check branch, via a dry run, not just documented.
+- Not yet running against a live LLM or in production, and the golden set is not yet built.
+- Modelled payback: ~4 quarters on PM time saved alone (Strategy One-Pager §2), a conservative floor that excludes the harder-to-quantify upside from fewer wrong bets.
 
 ### What ships next (next 2 sprints)
-- **Sprint 1:** stand up a real Langflow instance and validate `Juno Agent.json` against a live model, the one thing the dry run couldn't test, actual model variance, latency, and tool-call failure modes.
-- **Sprint 2:** build the 100-item golden set (`06-evals/golden-set/`) and wire the code-based CI checks (format, citation, evidence-balance) from the eval stack.
+- **Sprint 1:** build the 100-item golden set and wire the code-based CI checks (format, citation, evidence-balance). This closes the biggest open gap, accuracy proven on one case (the dry run), not yet proven at scale.
+- **Sprint 2:** stand up a real Langflow instance and validate `Juno Agent.json` against a live model, actual model variance, latency, and tool-call failure modes, the one thing the golden set can't test.
 
 ### What I watch (dashboards)
-Cycle time, decision-reversal rate, citation coverage, confidence-band distribution, evidence-balance gate trigger rate, and Manual Override rate per strategic pillar.
+- **Daily:** Manual Override rate, time-to-approve / un-actioned rate, cost per run against the $3.50/day cap.
+- **Weekly:** decision-reversal rate, human-rubric mean per dimension, evidence-balance gate trigger rate.
+- **Per release** (CI gate + nightly cron): golden-set accuracy, format/citation/evidence-balance pass rate.
 
 ### Red lines (what blocks shipping — numbers, not feelings)
-0% fabricated PII, ARR, or customer names. 0 critical safety fails (any score of 1) on the human-eval Safety/refusal dimension. Any citation-check failure. Anything published without a PM approval click. All four are hard, auto-blocking gates in `06-evals/eval-stack.md`, none are a "PM discretion" call.
+- <90% golden-set accuracy on the automated layer.
+- 0% fabricated PII, ARR, or customer names.
+- 0 critical safety fails (any score of 1) on the human-eval Safety/refusal dimension.
+- Any citation-check failure.
+- Anything published without a PM approval click.
+
+All five are hard, auto-blocking gates in `06-evals/eval-stack.md`, none are a "PM discretion" call.
 
 ### Governance
 _Compliance · Safety · Reliability · Reputation._
 
 - **Compliance:** no external comms and no publishing without human review (system prompt Refusal Conditions, PRD requirement 6).
 - **Safety:** hard refusal on PII, ARR, contracts, and legal/regulator requests, routed to the human PM.
-- **Reliability:** fail-safe banners and the evidence-balance gate stop Juno shipping ungrounded or skewed output rather than guessing.
+- **Reliability:** evidence-balance gate blocks any list where under 20% of citations come from one source type; p95 latency target under 3s (PRD requirement 1).
 - **Reputation:** `04-ai-ux/trust-gaps.md` addresses the hallucination, opacity, and control gaps directly, rather than assuming citations and an approval button are enough on their own.
 
 ---
@@ -76,40 +87,37 @@ _Compliance · Safety · Reliability · Reputation._
 - **Key learning.** A repo-wide consistency audit caught something no single-module review would have: Module 1's system prompt was still describing a different output shape, a ranked top-5 table, than every module built after it, a single scored priority card. Each module was internally fine; the set wasn't consistent with itself.
 - **Aha moment.** Reading the AWSpec is not the same as running it. The Jira/Slack conflict-check branch had been described in three separate documents but never actually exercised until the dry run produced a case where high confidence and a live conflict happened on the same card, and confirmed the conflict flag correctly overrode the confidence score rather than the other way round.
 
-
 ---
 
 ## Repo structure
-
-```
 juno-pm/
-├── README.md                    ← this dashboard + pitch
+├── README.md ← this dashboard + pitch
 ├── 01-prompting/
-│   ├── system-prompt.md         ← M1: Juno's system prompt
-│   └── lovable-prototype.md     ← M1: prototype link + debrief
+│ ├── system-prompt.md ← M1: Juno's system prompt
+│ └── lovable-prototype.md ← M1: prototype link + debrief
 ├── 02-strategy/
-│   ├── decision-matrix.md       ← M2: build / buy / fine-tune call
-│   └── strategy-one-pager.md    ← M2: AI strategy one-pager
+│ ├── decision-matrix.md ← M2: build / buy / fine-tune call
+│ └── strategy-one-pager.md ← M2: AI strategy one-pager
 ├── 03-rag-prd/
-│   ├── prd.md                   ← M3: AI PRD with retrieval requirements
-│   └── juno-rag-diff.md         ← M3: RAG diagnostic working notes
+│ ├── prd.md ← M3: AI PRD with retrieval requirements
+│ └── juno-rag-diff.md ← M3: RAG diagnostic working notes
 ├── 04-ai-ux/
-│   ├── user-flow.md             ← M4: AI-native user flow
-│   ├── user-flow.png            ← M4: flow diagram
-│   └── trust-gaps.md            ← M4: trust-gap mitigations
+│ ├── user-flow.md ← M4: AI-native user flow
+│ ├── user-flow.png ← M4: flow diagram
+│ └── trust-gaps.md ← M4: trust-gap mitigations
 ├── 05-agentic-workflows/
-│   ├── awspec.md                ← M5: Agent Workflow Spec
-│   ├── awspec.png               ← M5: AWSpec diagram
-│   ├── agent-control-panel.md   ← M5: Agent Control Panel
-│   ├── agent-control-panel.png  ← M5: Control Panel diagram
-│   ├── Juno Agent.json          ← M5: agent graph, realigned to the AWSpec
-│   └── dry-run/                 ← M5: AWSpec executed live, no Langflow needed
+│ ├── awspec.md ← M5: Agent Workflow Spec
+│ ├── awspec.png ← M5: AWSpec diagram
+│ ├── agent-control-panel.md ← M5: Agent Control Panel
+│ ├── agent-control-panel.png ← M5: Control Panel diagram
+│ ├── Juno Agent.json ← M5: agent graph, realigned to the AWSpec
+│ └── dry-run/ ← M5: AWSpec executed live, no Langflow needed
 ├── 06-evals/
-│   ├── eval-stack.md            ← M6: layered eval stack
-│   ├── eval-stack.png           ← M6: eval stack diagram
-│   ├── human-rubric.md          ← M6: human evaluation rubric
-│   └── human-rubric.png         ← M6: rubric diagram
-```
+│ ├── eval-stack.md ← M6: layered eval stack
+│ ├── eval-stack.png ← M6: eval stack diagram
+│ ├── human-rubric.md ← M6: human evaluation rubric
+│ └── human-rubric.png ← M6: rubric diagram
+
 
 ---
 
