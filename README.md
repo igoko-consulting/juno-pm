@@ -6,6 +6,8 @@ _Martin Cook · AI Product Management Certification · [#ai-product-management-a
 
 This repo is my final project for the **AI Product Management Certification**. Each module's artefact lives in its own folder; this README is the dashboard and the pitch.
 
+**[View the visual pitch →](pitch.html)**
+
 ---
 
 ## Module artefacts
