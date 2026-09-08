@@ -48,7 +48,7 @@ This repo is my final project for the **AI Product Management Certification**. E
 ## PM Execution Plan
 
 ### Where Juno is today
-All six modules are built and, after a full repo-wide consistency pass, internally consistent with each other, one product description end to end, not six independently plausible ones. The AWSpec's logic has been proven with a real dry run against a live example (`05-agentic-workflows/dry-run/`), including the Jira/Slack conflict-check branch. Not yet running against a live LLM or in production.
+All six modules are built and, after a full repo-wide consistency pass, internally consistent with each other, one product description end to end, not six independently plausible ones. The AWSpec's logic has been proven with a real dry run against a live example (`05-agentic-workflows/dry-run/`), including the Jira/Slack conflict-check branch. Not yet running against a live LLM or in production. Modelled payback: approximately 4 quarters, see Strategy One-Pager §2.
 
 ### What ships next (next 2 sprints)
 - **Sprint 1:** stand up a real Langflow instance and validate `Juno Agent.json` against a live model, the one thing the dry run couldn't test, actual model variance, latency, and tool-call failure modes.
