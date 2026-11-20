@@ -36,7 +36,9 @@ Hypothetical linked ticket **ROCKET-1188** ("CSV export slow on large ranges") i
 
 ## Step 6 · Confidence check and routing
 
-82% ≥ 70% threshold → tag **P0**, ready for the PM review queue.
+Priority **P0** comes from the Step 5 risk and alignment score. Confidence of 82% is in the high band (70% or more), so the card goes to the PM review queue.
+
+Evidence balance: three citations across three source types (strategy pillar, Slack, Jira), so no type exceeds the 80% cap.
 
 Because a conflicting signal was also detected (Jira P2 vs Slack P0), the Checkpoints rule in the Control Panel applies regardless of confidence: **PM review required before this is treated as final.** High confidence does not bypass a conflict flag.
 
@@ -47,7 +49,7 @@ Because a conflicting signal was also detected (Jira P2 vs Slack P0), the Checkp
 | Field | Value |
 |---|---|
 | Priority | P0 |
-| Confidence | 82% (medium-high) |
+| Confidence | 82% (high) |
 | Strategic pillar | Platform Reliability |
 | Evidence | THREAD-2201 (#escalations), ROCKET-1188 (Jira, conflicting priority) |
 | Flag | Conflicting signal, Jira tags this P2 |

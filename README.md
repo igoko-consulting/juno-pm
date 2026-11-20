@@ -62,7 +62,7 @@ This repo is my final project for the **AI Product Management Certification**. E
 - **Sprint 2:** stand up a real Langflow instance and validate `Juno Agent.json` against a live model, actual model variance, latency, and tool-call failure modes, the one thing the golden set can't test.
 
 ### What I watch (dashboards)
-- **Daily:** Manual Override rate, time-to-approve / un-actioned rate, cost per run against the $3.50/day cap.
+- **Daily:** Manual Override rate, time-to-approve / un-actioned rate, cost per run against the 50-run daily cap (modelled at $6 or more a day).
 - **Weekly:** decision-reversal rate, human-rubric mean per dimension, evidence-balance gate trigger rate.
 - **Per release** (CI gate + nightly cron): golden-set accuracy, format/citation/evidence-balance pass rate.
 
@@ -80,7 +80,7 @@ _Compliance · Safety · Reliability · Reputation._
 
 - **Compliance:** no external comms and no publishing without human review (system prompt Refusal Conditions, PRD requirement 6).
 - **Safety:** hard refusal on PII, ARR, contracts, and legal/regulator requests, routed to the human PM.
-- **Reliability:** evidence-balance gate blocks any list where under 20% of citations come from one source type; p95 latency target under 3s (PRD requirement 1).
+- **Reliability:** evidence-balance gate blocks any card where one source type supplies more than 80% of citations; p95 latency target under 3s (PRD requirement 1).
 - **Reputation:** `04-ai-ux/trust-gaps.md` addresses the hallucination, opacity, and control gaps directly, rather than assuming citations and an approval button are enough on their own.
 
 ---

@@ -4,7 +4,7 @@
 
 The Problem: roadmap discussions at RocketShip are driven by the loudest voice in Slack rather than customer evidence. Priorities reverse weekly; stakeholder trust is eroding.
 
-Prevention: Juno explicitly prevents 'opinion-driven prioritization' - the bad decision of moving a feature up the backlog because someone in #leadership posted strongly, instead of because the cited evidence outweighs the alternatives. The good decision it enables: a ranking any stakeholder can trace back to its sources and re-litigate on the evidence, not on who posted loudest.
+Prevention: Juno explicitly prevents 'opinion-driven prioritization' - the bad decision of moving a feature up the backlog because someone in #leadership posted strongly, instead of because the cited evidence outweighs the alternatives. The good decision it enables: a priority any stakeholder can trace back to its sources and re-litigate on the evidence, not on who posted loudest.
 
 ## 2. Target Metrics
 
@@ -22,7 +22,7 @@ Explicitly avoiding: Agent. Letting Juno move sprint priorities or shift live da
 
 ## 4. Data & Model Approach
 
-Approach: Hybrid - Ground (RAG) + bounded Agentic cross-check. We ground the model in the RocketShip corpus - Slack #escalations, support tickets, interview notes, Notion product pages, Jira tickets - so every priority cites a source ID. A bounded agentic layer cross-checks Jira priority against Slack escalations and flags conflicts; it surfaces discrepancies, it doesn't resolve them.
+Approach: Hybrid - Ground (RAG) + bounded Agentic cross-check. We ground the model in the RocketShip corpus (Slack #escalations, Notion product pages, Jira tickets and this one-pager) so every priority cites a source ID. A bounded agentic layer cross-checks Jira priority against Slack escalations and flags conflicts; it surfaces discrepancies, it doesn't resolve them.
 
 Explicitly avoiding: a generic LLM (Buy) - without RAG grounding, Juno would hallucinate plausible-sounding priorities and invent customer signals that don't exist, the failure mode that kills trust fastest. Also avoiding Fine-tune: it goes stale as the corpus moves and still can't cite a live source the way RAG retrieval can.
 
@@ -36,13 +36,13 @@ Explicitly avoiding: a generic LLM (Buy) - without RAG grounding, Juno would hal
 ## 5. Risks & Mitigations
 
 Risk 1: training data lag. Juno could over-weight whichever signal type was loudest in the past 60 days (e.g. enterprise escalations) and systematically under-weight quieter but more strategic signals (e.g. SMB churn). One quarter of skewed priorities and the roadmap drifts.
-Mitigation: a hard 'evidence balance' eval gate - reject any priority list where less than 20% of cited sources come from any one source type. Run weekly; PM reviews.
+Mitigation: a hard 'evidence balance' eval gate that rejects any draft where one source type supplies more than 80% of cited sources. Run weekly; PM reviews.
 
 Risk 2: metric-gaming. Chasing the 90% citation-coverage target could reward Juno for attaching two tangentially related sources just to hit the number, not for genuine evidential strength.
 Mitigation: PM spot-checks a 10% sample of citations weekly for relevance, not just presence - coverage is a floor, not a proxy for quality.
 
 ## 6. V1 Scope
 
-In: (1) ranking the existing backlog with cited evidence, (2) surfacing under-cited items, (3) flagging conflicts between Slack escalations and Jira priorities.
+In: (1) scoring each P0/P1 escalation into a cited priority card, (2) surfacing under-cited items, (3) flagging conflicts between Slack escalations and Jira priorities.
 
 Out: (1) hiring or headcount decisions, (2) customer-facing comms about why a feature was deprioritised. Both stay 100% with the human PM.
