@@ -2,7 +2,7 @@
 
 _Working notes from Module 3 Lab 1. Do not paste over `03-rag-prd/prd.md`. That file comes from the AI PRD Builder._
 
-**Lovable prototype:** https://lovable.dev/projects/a7059b7a-c63b-49a5-92ea-a899d5941eb0
+**Lovable prototype:** https://lovable.dev/projects/a7059b7a-c63b-49a5-92ea-a899d5941eb0 (private Lovable project, not publicly viewable)
 
 ### Before - Quality Mode (no strategy)
 

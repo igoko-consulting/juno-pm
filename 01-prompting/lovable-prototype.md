@@ -4,7 +4,7 @@
 
 ## Prototype link
 
-https://id-preview--a7059b7a-c63b-49a5-92ea-a899d5941eb0.lovable.app/
+https://id-preview--a7059b7a-c63b-49a5-92ea-a899d5941eb0.lovable.app/ (private Lovable preview, not publicly viewable)
 
 _____
 
