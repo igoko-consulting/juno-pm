@@ -1,7 +1,6 @@
-
 # Agent Workflow Spec (AWSpec) · Juno
 
-_Module 5. 
+_Module 5._
 
 ## Goal
 

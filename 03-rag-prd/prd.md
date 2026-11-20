@@ -1,6 +1,6 @@
 # AI PRD · Juno
 
-_Module 3.
+_Module 3._
 
 ## Problem & user
 
@@ -12,14 +12,14 @@ Juno is a hybrid system: RAG for grounded retrieval, plus a bounded agentic laye
 
 **Retrieval strategy:** Hybrid
 
-PMs ask two kinds of questions. Specific: "What did the Acme Co ticket from 14 October cite as the blocker?" needs keyword retrieval. Directional: "What's the dominant frustration theme this week?" needs semantic. RAG-only sacrifices the second; long-context-only sacrifices precision and blows the budget on the first.
+PMs ask two kinds of questions. Specific: "What did the Acme Co ticket from 14 October cite as the blocker?" needs keyword retrieval. Directional: "What's the dominant frustration theme this week?" needs semantic retrieval. Keyword search alone misses the directional questions; semantic search alone misses exact IDs and dates. Hybrid covers both.
 
 **Autonomy:** Copilot, not Agent. Juno drafts one cited Insight Card per escalation. A PM has to click approve before anything publishes. This matches the autonomy decision already made in the Strategy One-Pager, and it's a requirement below, not a footnote.
 
 ## Retrieval requirements (RAG)
 
-- **Sources:** RocketShip Strategy One-Pager (M2 deliverable), Slack `#escalations` tagged P0/P1, Notion pages in the RocketShip Product workspace, Jira tickets in the `ROCKET` project. This matches the scope already set in Juno's system prompt and the One-Pager. Earlier drafts of this PRD referenced Zendesk, Salesforce, and a `#voice-of-customer` channel; none of those are in scope and they've been removed rather than left as an open inconsistency.
-- **Volume:** roughly 600 documents to start. Worth re-checking this figure once the corpus is actually indexed against the corrected source list above, since it was originally estimated against a different mix.
+- **Sources:** RocketShip Strategy One-Pager (in git), Slack `#escalations` tagged P0/P1, Notion pages in the RocketShip Product workspace, Jira tickets in the `ROCKET` project. This matches the scope already set in Juno's system prompt and the One-Pager.
+- **Volume:** about 600 documents to start (an estimate, to confirm once the corpus is indexed).
 - **Chunking / indexing:** hybrid, semantic and keyword. Around 500-token chunks with 15% overlap feed the semantic index for directional queries. A keyword (BM25) index over ticket IDs, Slack permalinks, and Notion page IDs handles the specific lookups. This maps directly to the two query types above.
 - **Grounding rule:** every priority Juno produces (P0 to P3, or notRecommended) cites at least one strategy clause and at least one piece of evidence (Jira key, Slack permalink, or Notion page reference). Citations render inline as footnotes the PM can click through to verify.
 - **Freshness:** Strategy One-Pager syncs on commit, since it lives in git. Slack `#escalations` refreshes hourly, since that's where the fastest-moving signal is. Jira tickets refresh hourly too, since status and priority changes are exactly what the agentic layer is checking for conflicts against. Notion pages sync daily, since product docs move slower than either.

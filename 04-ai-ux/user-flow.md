@@ -1,6 +1,6 @@
 # AI-Native User Flow · Juno
 
-_Module 4. 
+_Module 4._
 
 ## Entry point
 
@@ -20,11 +20,11 @@ A new #escalations thread tagged P0 arrives in the Raw Input column in Juno (the
 2. Breadcrumb sequence: "Scanning Strategy One-Pager..." then "Cross-referencing transcript with strategic pillars..." then "Synthesising priorities and drafting PRD section..." These three messages are paced against the roughly 3 second p95 latency target from the M3 PRD, so the wait reads as progress rather than a stall.
 3. Path A, strategy loaded: grounded prioritisation with citations, rendered as Insight Cards.
    Path B, strategy missing: no priority. Juno shows the insufficient-evidence banner and a prompt to load the strategy doc (PRD requirement 2).
-4. PM reviews the cards and PRD draft, edits where needed, and clicks Approve. Nothing publishes or exports before this. This is the Copilot boundary from the Strategy One-Pager and PRD requirement 6, and it was missing from the flow before, worth adding since it's the actual point the PM takes ownership.
+4. PM reviews the cards and PRD draft, edits where needed, and clicks Approve. Nothing publishes or exports before this. This is the Copilot boundary from the Strategy One-Pager and PRD requirement 6, and the point where the PM takes ownership.
 
 **Hidden logic** (not shown to the PM, referenced here so it stays traceable to the M3 PRD)
 
-1. RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. Lower than the PRD's top-K = 8 deliberately, this lookup is scoped to a single short document with around 4 pillars, not the full 600-document corpus, so 8 would mostly return padding.
+1. RAG retrieval over the RocketShip Strategy One-Pager, top-K = 6. This is lower than the PRD's top-K = 8 because the lookup covers one short document with four pillars, not the 600-document corpus.
 2. Comparison logic: does the transcript's pain point map to a strategic pillar?
 3. Risk and alignment scoring: emit P0 to P3 with a strategic-rationale citation.
 4. Confidence check: confidence sets routing, not priority. 70 or above goes to the PM review queue as high confidence. 30 to 69 carries a "medium confidence" flag and needs PM review before it counts as final. Under 30 returns notRecommended with no priority.
@@ -35,7 +35,7 @@ A new #escalations thread tagged P0 arrives in the Raw Input column in Juno (the
 
 One Insight Card per escalation in column 2, with a P0 to P3 badge, an evidence quote from the thread, and a Strategic Traceability footer citing the pillar. The PRD draft in column 3 references the card directly.
 
-Two card states from the PRD weren't represented here and are worth adding:
+Two further card states come from the PRD:
 
 - **Evidence-balance flag:** if the evidence-balance gate (PRD requirement 4) rejects a draft because one source type supplies more than 80% of its citations, the card shows a "rebalancing evidence" state rather than the PM seeing nothing change.
 - **Conflicting signal flag:** if the agentic layer finds a Jira priority that contradicts an open Slack escalation (PRD requirement 5), the card shows both citations side by side with a "conflicting signal" label. Juno doesn't pick a side, the PM does.
@@ -62,7 +62,7 @@ If the evidence-balance gate fails twice in a row (see PRD requirement 4), Juno 
 
 - [x] Trigger fires on the earliest possible signal, no manual "Start AI" click.
 - [x] At least one breadcrumb message turns latency into transparency.
-- [x] Manoeuvre matches the M2 value prop (Automation / Augmentation / Insights / Personalisation).
+- [x] The AI's role matches the M2 value proposition (Automation / Augmentation / Insights / Personalisation).
 - [x] Every automated decision has a working kill switch.
 - [x] Fail-safe path is explicit, no dead end on a bad AI result.
 - [x] Hidden logic references M3 PRD specs (Top-K, latency target, knowledge base).

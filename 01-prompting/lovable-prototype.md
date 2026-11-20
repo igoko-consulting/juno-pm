@@ -17,5 +17,5 @@ _____
 ## Debrief
 
 - **What worked:** Testing the same use case across multiple LLMs to compare outputs side by side.
-- **What broke / felt like a toy:** Multiple tools displayed generally (directionally) similar outcomes, some tools adjusted the output due to having wider context (wider usage) i.e. Claude/ChatGPT more, Loveable less (just signed up)
+- **What broke / felt like a toy:** outputs were directionally similar across tools. Claude and ChatGPT adjusted their output using wider context from longer use; Lovable, on a new account, did less of this.
 - **What I'd change next pass:** Test wider use cases from my role, or existing products.

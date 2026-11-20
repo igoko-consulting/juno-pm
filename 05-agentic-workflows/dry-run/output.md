@@ -10,9 +10,9 @@ Pain point: CSV export for date ranges beyond ~60-90 days fails silently, blank 
 
 Retrieved chunks (ranked):
 
-1. **Strategic Pillars → Platform Reliability** - "uptime and crash-free performance, especially on data-heavy operations (large exports, high-volume queries)." Direct match.
-2. **§1 Problem & Workflow** - roadmap trust context, weaker match, not used as primary citation.
-3. **Strategic Pillars → Customer Retention** - "reducing churn, weighted toward the quieter SMB signal." Secondary match, this is enterprise-account and QBR-driven, not the SMB churn signal the pillar is calibrated toward. Retrieved, not cited as primary.
+1. **Strategic Pillars → Platform Reliability**: "uptime and crash-free performance, especially on data-heavy operations (large exports, high-volume queries)." Direct match.
+2. **§1 Problem & Workflow**: roadmap trust context, weaker match, not used as primary citation.
+3. **Strategic Pillars → Customer Retention**: "reducing churn, weighted towards the quieter SMB signal." Secondary match, this is enterprise-account and QBR-driven, not the SMB churn signal the pillar is calibrated toward. Retrieved, not cited as primary.
 
 ## Step 3 · Compare pain point to the four strategic pillars
 

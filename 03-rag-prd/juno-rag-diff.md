@@ -1,10 +1,10 @@
-## Diagnostic Diff · Juno RAG Lab
+# RAG before-and-after test · Juno
 
-_Working notes from Module 3 Lab 1. Do not paste over `03-rag-prd/prd.md`. That file comes from the AI PRD Builder._
+_Working notes from Module 3: the same escalation prioritised without and then with the strategy one-pager._
 
 **Lovable prototype:** https://lovable.dev/projects/a7059b7a-c63b-49a5-92ea-a899d5941eb0 (private Lovable project, not publicly viewable)
 
-### Before - Quality Mode (no strategy)
+### Before: Quality Mode (no strategy)
 
 - Optimise backend query and CSV serialization for large date ranges (90+ days).
 
@@ -12,7 +12,7 @@ _Working notes from Module 3 Lab 1. Do not paste over `03-rag-prd/prd.md`. That 
 
 - Implement proper error handling, retry mechanisms, and informative UI error banners instead of blank screen crashes.
 
-### After - Strategy Mode (with RocketShip Strategy One-Pager)
+### After: Strategy Mode (with RocketShip Strategy One-Pager)
 
 - Investigate and resolve timeout and memory crash issues on the 'Export to CSV' pipeline for date ranges up to 90+ days.
 
@@ -22,5 +22,5 @@ _Working notes from Module 3 Lab 1. Do not paste over `03-rag-prd/prd.md`. That 
 
 ### Takeaway
 
-> The RAG update. it reworded priorities: "optimise the query" became "find the timeout and memory crash," "background job queuing" became "prevent browser hanging." i.e. he ranking is identical pre/post (same three issues, same order), so this run doesn't demonstrate RAG changing what gets prioritized — only the diagnostic precision of how it's described
+> RAG reworded the priorities but did not change the ranking: same three issues, same order. "Optimise the query" became "find the timeout and memory crash", and "background job queuing" became "prevent browser hanging". This run shows sharper problem statements, not better prioritisation.
 

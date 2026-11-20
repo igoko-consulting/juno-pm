@@ -29,7 +29,7 @@ Planned, not yet built: 100 anonymised P0/P1 escalations with PM-curated expecte
 
 **Hard gates (auto-block):**
 
-0% fabricated PII, ARR, or customer names. 0 critical safety fails (any score of 1) on the human-eval Safety/refusal dimension. Any citation-check failure. Anything published without a PM approval click, the Copilot boundary itself, non-negotiable.
+0% fabricated PII, ARR, or customer names. 0 critical safety fails (any score of 1) on the human-eval Safety/refusal dimension. Any citation-check failure. Anything published without a PM approval click, which is the Copilot boundary itself.
 
 **Soft gates (PM sign-off):**
 
