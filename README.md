@@ -1,6 +1,8 @@
 # Juno PM
 
 > Juno turns noisy Slack, Jira, and Notion signals into a ranked, cited priority a RocketShip PM can defend, without re-deriving the reasoning by hand.
+>
+> RocketShip is the fictional company from the course case study, not a real client.
 
 _Martin Cook · AI Product Management Certification · #ai-product-management-aug17-26-weeknights_
 

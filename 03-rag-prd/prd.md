@@ -12,7 +12,7 @@ Juno is a hybrid system: RAG for grounded retrieval, plus a bounded agentic laye
 
 **Retrieval strategy:** Hybrid
 
-PMs ask two kinds of questions. Specific: "What did the Pearson Co ticket from 14 October cite as the blocker?" needs keyword retrieval. Directional: "What's the dominant frustration theme this week?" needs semantic. RAG-only sacrifices the second; long-context-only sacrifices precision and blows the budget on the first.
+PMs ask two kinds of questions. Specific: "What did the Acme Co ticket from 14 October cite as the blocker?" needs keyword retrieval. Directional: "What's the dominant frustration theme this week?" needs semantic. RAG-only sacrifices the second; long-context-only sacrifices precision and blows the budget on the first.
 
 **Autonomy:** Copilot, not Agent. Juno drafts the ranked backlog with citations. A PM has to click approve before anything publishes. This matches the autonomy decision already made in the Strategy One-Pager, and it's a requirement below, not a footnote.
 

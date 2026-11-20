@@ -12,7 +12,7 @@
 
 **@marcus.cs:** Yep, just tried. Screen goes blank after about 20 seconds, no error, nothing. Had to refresh and lost the filter state too.
 
-**@sarah.ops:** Same. Customer (Pearson Co) is asking for a full quarter export ahead of their QBR tomorrow and it's just not coming back. No timeout message, no retry option, just a dead screen.
+**@sarah.ops:** Same. Customer (Acme Co) is asking for a full quarter export ahead of their QBR tomorrow and it's just not coming back. No timeout message, no retry option, just a dead screen.
 
 **@raj.eng:** Looking at it now. Looks like the query itself is timing out server-side on anything past ~60 days, the frontend has no idea and just hangs. We're not catching the failure anywhere in the export path.
 
