@@ -1,6 +1,6 @@
 # Dry run output · THREAD-2201
 
-Executed against the live `strategy-one-pager.md` and the AWSpec's 6-step pipeline. Real retrieval over the real document, real scoring against the real confidence thresholds in `agent-control-panel.md`.
+Applied by hand to `strategy-one-pager.md`, following the AWSpec's six steps and the confidence thresholds in `agent-control-panel.md`. Retrieval was done by reading the one-pager, so the chunks and the confidence score are the author's judgement, not model output.
 
 ## Step 1 · Read the transcript, identify the pain point
 

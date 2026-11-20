@@ -1,6 +1,6 @@
 # System Prompt · Juno
 
-> Module 1 · Prompting. Juno's production system prompt, authored with the **M1 · System Prompt Configurator**. Fill the tool, then paste its markdown over this file.
+> Module 1 · Prompting. Juno's system prompt: a draft that has not yet been run against a live model.
 
 ## Role & objective
 

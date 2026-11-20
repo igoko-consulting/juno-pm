@@ -33,8 +33,8 @@ This repo is my final project for the **AI Product Management Certification**. E
 ### M5 · Agentic Workflows
 - **Agent Workflow Spec (AWSpec)** — [`05-agentic-workflows/awspec.md`](05-agentic-workflows/awspec.md) ([diagram](05-agentic-workflows/awspec.png))
 - **Agent Control Panel** — [`05-agentic-workflows/agent-control-panel.md`](05-agentic-workflows/agent-control-panel.md) ([diagram](05-agentic-workflows/agent-control-panel.png))
-- **Agent graph** — [`05-agentic-workflows/Juno Agent.json`](<05-agentic-workflows/Juno Agent.json>)
-- **Dry run** (AWSpec executed end to end, no Langflow, no API key) — [`05-agentic-workflows/dry-run/`](05-agentic-workflows/dry-run/)
+- **Agent graph** (illustrative, not import-tested) — [`05-agentic-workflows/Juno Agent.json`](<05-agentic-workflows/Juno Agent.json>)
+- **Dry run** (the AWSpec applied by hand to one reconstructed escalation, not run on a live model) — [`05-agentic-workflows/dry-run/`](05-agentic-workflows/dry-run/)
 
 ### M6 · Evals & Guardrails
 - **Eval stack** — [`06-evals/eval-stack.md`](06-evals/eval-stack.md) ([diagram](06-evals/eval-stack.png))
@@ -52,13 +52,13 @@ This repo is my final project for the **AI Product Management Certification**. E
 ## PM Execution Plan
 
 ### Where Juno is today
-- All six modules built (M1–M6) and internally consistent after a full repo audit.
-- The AWSpec's logic is proven against a live example, including the Jira/Slack conflict-check branch, via a dry run, not just documented.
+- All six modules drafted (M1 to M6) and cross-referenced.
+- A walkthrough by hand of one reconstructed escalation shows the spec routes a Jira/Slack conflict to PM review even at high confidence.
 - Not yet running against a live LLM or in production, and the golden set is not yet built.
-- Modelled payback: ~4 quarters on PM time saved alone (Strategy One-Pager §2), a conservative floor that excludes the harder-to-quantify upside from fewer wrong bets.
+- Modelled payback of about four quarters on PM time saved (Strategy One-Pager §2). It excludes running costs, PM review and grading time, and the upside of fewer wrong bets.
 
 ### What ships next (next 2 sprints)
-- **Sprint 1:** build the 100-item golden set and wire the code-based CI checks (format, citation, evidence-balance). This closes the biggest open gap, accuracy proven on one case (the dry run), not yet proven at scale.
+- **Sprint 1:** build the 100-item golden set and wire the code-based CI checks (format, citation, evidence-balance). This closes the biggest open gap: accuracy has been shown on one worked case, not at scale.
 - **Sprint 2:** stand up a real Langflow instance and validate `Juno Agent.json` against a live model, actual model variance, latency, and tool-call failure modes, the one thing the golden set can't test.
 
 ### What I watch (dashboards)
@@ -116,8 +116,8 @@ juno-pm/
 │   ├── awspec.png               ← M5: AWSpec diagram
 │   ├── agent-control-panel.md   ← M5: Agent Control Panel
 │   ├── agent-control-panel.png  ← M5: Control Panel diagram
-│   ├── Juno Agent.json          ← M5: agent graph, realigned to the AWSpec
-│   └── dry-run/                 ← M5: AWSpec executed live, no Langflow needed
+│   ├── Juno Agent.json          ← M5: illustrative agent graph, not import-tested
+│   └── dry-run/                 ← M5: AWSpec walked through by hand on one example
 ├── 06-evals/
 │   ├── eval-stack.md            ← M6: layered eval stack
 │   ├── eval-stack.png           ← M6: eval stack diagram

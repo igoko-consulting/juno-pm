@@ -23,7 +23,7 @@ Juno turns a noisy P0/P1 escalation into a ranked, cited priority a PM can trust
 
 ## Golden set
 
-100 anonymised P0/P1 escalations with PM-curated expected priority, pillar, and confidence band. Versioned in `06-evals/golden-set/`. Refresh quarterly, and immediately after any incident where Juno missed a real Jira/Slack conflict.
+Planned, not yet built: 100 anonymised P0/P1 escalations with PM-curated expected priority, pillar and confidence band, to be versioned in `06-evals/golden-set/`. Refresh quarterly, and immediately after any incident where Juno missed a real Jira/Slack conflict.
 
 ## Release gate
 

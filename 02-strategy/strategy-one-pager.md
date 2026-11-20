@@ -12,7 +12,7 @@ Cycle time: reduce average weekly roadmap prioritization from 2 hours to 30 minu
 
 Leadership proof: under-10% rate of decisions reversed within 1 week (tracked via Jira priority-change log), AND 90%+ of prioritised items have at least 2 cited sources from the corpus (baseline: 0% today - no citation discipline currently exists). Both metrics measurable in the first 30 days post-launch.
 
-Cost translation (modelled, not measured): at 6 PMs recovering 1.5 hrs/week each (the cycle-time saving above) and a $95/hr loaded PM cost, that's roughly $11,100 recovered per quarter. Modelled build cost is $45,000 (build + initial eval harness), putting payback at approximately 4 quarters. This deliberately excludes the harder-to-quantify upside, fewer wrong bets from opinion-driven prioritisation, so it's a conservative floor, not the full case.
+Cost translation (modelled, not measured): at 6 PMs recovering 1.5 hrs/week each (the cycle-time saving above) and a $95/hr loaded PM cost, that's roughly $11,100 recovered per quarter. Modelled build cost is $45,000 (build + initial eval harness), putting payback at approximately 4 quarters. It excludes running costs (PRD requirement 1), the PM time spent reviewing cards and grading evals, and the harder-to-quantify upside of fewer wrong bets, so treat it as a modelled estimate, not a floor.
 
 ## 3. Autonomy Level
 
