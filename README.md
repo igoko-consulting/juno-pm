@@ -1,6 +1,6 @@
 # Juno PM
 
-Juno is a copilot that turns noisy Slack, Jira and Notion escalations into a cited priority card, which a PM approves before anything is shared. RocketShip, the company it is specified for, is the fictional case study from the AI Product Management Certification; this repo is my capstone for that course.
+Juno is a copilot that turns noisy Slack, Jira and Notion escalations into a cited priority card, which a PM approves before anything is shared. RocketShip, the company it is specified for, is a fictional case study adapted from Product School's AI Product Management course, whose modules the chapters here draw on.
 
 **AI approach:** hybrid keyword and semantic retrieval grounds each card in its sources, a read-only agent step flags Jira/Slack priority conflicts without resolving them, and a PM approval gate blocks anything from publishing.
 
@@ -119,4 +119,4 @@ juno-pm/
 
 ---
 
-_Martin Cook · capstone for the AI Product Management Certification._
+_Martin Cook · a standalone project, written up in chapters drawn from Product School's AI Product Management course._
