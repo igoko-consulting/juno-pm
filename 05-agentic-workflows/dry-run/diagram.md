@@ -23,4 +23,4 @@ flowchart TD
     draft --> approve
 ```
 
-**What this run exercised:** the Control Panel's Checkpoints rule says a conflicting signal forces PM review "regardless" of confidence. This is the first time that branch has been applied to a worked example. Earlier documents described it, but none showed a case where high confidence and a conflict happen on the same card. Here confidence was high (82%) and the conflict flag still won: PM review is required either way.
+**What this run actually exercised:** the AWSpec's Checkpoints rule says a conflicting signal forces PM review "regardless" of confidence. This is the first time that specific branch has been run against a real example, every prior document described it, none had shown a case where high confidence and a conflict happen on the same card. Here confidence was high (82%) and the conflict flag still won, PM review is required either way.

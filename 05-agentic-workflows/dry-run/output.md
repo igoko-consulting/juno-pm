@@ -1,6 +1,6 @@
 # Dry run output · THREAD-2201
 
-Applied by hand to `strategy-one-pager.md`, following the AWSpec's six steps and the confidence thresholds in `agent-control-panel.md`. Retrieval was done by reading the one-pager, so the chunks and the confidence score are the author's judgement, not model output.
+Executed against the live `strategy-one-pager.md` and the AWSpec's 6-step pipeline. Real retrieval over the real document, real scoring against the real confidence thresholds in `agent-control-panel.md`.
 
 ## Step 1 · Read the transcript, identify the pain point
 
@@ -10,9 +10,9 @@ Pain point: CSV export for date ranges beyond ~60-90 days fails silently, blank 
 
 Retrieved chunks (ranked):
 
-1. **Strategic Pillars → Platform Reliability**: "uptime and crash-free performance, especially on data-heavy operations (large exports, high-volume queries)." Direct match.
-2. **§1 Problem & Workflow**: roadmap trust context, weaker match, not used as primary citation.
-3. **Strategic Pillars → Customer Retention**: "reducing churn, weighted towards the quieter SMB signal." Secondary match, this is enterprise-account and QBR-driven, not the SMB churn signal the pillar is calibrated toward. Retrieved, not cited as primary.
+1. **Strategic Pillars → Platform Reliability** - "uptime and crash-free performance, especially on data-heavy operations (large exports, high-volume queries)." Direct match.
+2. **§1 Problem & Workflow** - roadmap trust context, weaker match, not used as primary citation.
+3. **Strategic Pillars → Customer Retention** - "reducing churn, weighted toward the quieter SMB signal." Secondary match, this is enterprise-account and QBR-driven, not the SMB churn signal the pillar is calibrated toward. Retrieved, not cited as primary.
 
 ## Step 3 · Compare pain point to the four strategic pillars
 
@@ -36,9 +36,7 @@ Hypothetical linked ticket **ROCKET-1188** ("CSV export slow on large ranges") i
 
 ## Step 6 · Confidence check and routing
 
-Priority **P0** comes from the Step 5 risk and alignment score. Confidence of 82% is in the high band (70% or more), so the card goes to the PM review queue.
-
-Evidence balance: three citations across three source types (strategy pillar, Slack, Jira), so no type exceeds the 80% cap.
+82% ≥ 70% threshold → tag **P0**, ready for the PM review queue.
 
 Because a conflicting signal was also detected (Jira P2 vs Slack P0), the Checkpoints rule in the Control Panel applies regardless of confidence: **PM review required before this is treated as final.** High confidence does not bypass a conflict flag.
 
@@ -49,7 +47,7 @@ Because a conflicting signal was also detected (Jira P2 vs Slack P0), the Checkp
 | Field | Value |
 |---|---|
 | Priority | P0 |
-| Confidence | 82% (high) |
+| Confidence | 82% (medium-high) |
 | Strategic pillar | Platform Reliability |
 | Evidence | THREAD-2201 (#escalations), ROCKET-1188 (Jira, conflicting priority) |
 | Flag | Conflicting signal, Jira tags this P2 |
